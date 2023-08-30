@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Upload a TradingView account history CSV and visualize it on a webpage built with Next.js.
 
 ## Getting Started
 
