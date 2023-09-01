@@ -23,7 +23,6 @@ export default function Home() {
             <Image
               src="https://geronaalvin.com/logo.svg"
               alt="Alvin Gerona"
-              className="dark:invert"
               width={100}
               height={24}
               priority

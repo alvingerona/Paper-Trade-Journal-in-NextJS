@@ -1,11 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Bebas_Neue } from "next/font/google";
+import { Roboto } from "next/font/google";
 import Providers from "./providers";
 
-const inter = Bebas_Neue({
+const inter = Roboto({
   style: "normal",
-  weight: "400",
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-gray-200`}>
         <Providers>{children}</Providers>
       </body>
     </html>

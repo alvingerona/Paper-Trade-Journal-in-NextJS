@@ -7,6 +7,7 @@ import {
   useGroupRowsByDate,
 } from "@/store/accountHistory";
 import { AppState } from "@/store/store";
+import GroupTotalProfitLoss from "../GroupTotalProfitLoss";
 
 export default function DetailedTable() {
   const groups = useSelector((state: AppState) => useGroupRowsByDate(state));
@@ -21,10 +22,13 @@ export default function DetailedTable() {
           <div className="bg-white shadow sm:rounded-lg mb-4" key={date}>
             <div className="px-4 py-5 sm:p-6">
               <div className="sm:flex sm:items-center">
-                <div className="sm:flex-auto">
+                <div className="sm:flex-auto mb-2">
                   <h1 className="text-base font-semibold leading-6 text-gray-900">
                     Date: {date}
                   </h1>
+                  <p className="text-base text-gray-900">
+                    P&L: <GroupTotalProfitLoss rows={groups[date]} />{" "}
+                  </p>
                 </div>
               </div>
 
