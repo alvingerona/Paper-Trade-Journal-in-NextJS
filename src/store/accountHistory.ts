@@ -9,6 +9,7 @@ export interface HistoryRawItem {
   BALANCE_BEFORE: string;
   PROFIT_LOSS: string;
   TIME: string;
+  id: string; // id is generated from combination of all other fields
 }
 
 export interface HistoryFormattedItem {
@@ -37,9 +38,18 @@ export const accountHistorySlice = createSlice({
   name: "accountHistory",
   initialState,
   reducers: {
-    // Action to set the accountHistory status
-    setRows(state, action) {
-      state.rows = action.payload;
+    setRows(
+      state,
+      action: {
+        payload: Array<HistoryRawItem>;
+      }
+    ) {
+      state.rows = action.payload.map((item) => {
+        return {
+          ...item,
+          id: `${item.ACTION}-${item.BALANCE_AFTER}-${item.BALANCE_BEFORE}-${item.PROFIT_LOSS}-${item.TIME}`,
+        };
+      });
     },
   },
 
@@ -89,7 +99,7 @@ export const useSelectFormattedRows = (state: AppState) => {
       TIME: time,
       DATE: time.format("YYYY-MM-DD"),
       SYMBOL: symbol,
-      PROFIT_LOSS: parseInt(row.PROFIT_LOSS),
+      PROFIT_LOSS: parseFloat(row.PROFIT_LOSS),
       POSITION: extractPositionAndCreateString(row.ACTION),
     };
   });

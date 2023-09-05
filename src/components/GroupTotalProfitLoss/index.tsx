@@ -14,5 +14,9 @@ export default function GroupTotalProfitLoss({ rows }: PropType) {
 
   const total = profits - Math.abs(losses);
 
-  return <>{total > 0 ? "+$" + total : "-$" + Math.abs(total)}</>;
+  return (
+    <>
+      {total > 0 ? "+$" + total.toFixed(2) : "-$" + Math.abs(total).toFixed(2)}
+    </>
+  );
 }

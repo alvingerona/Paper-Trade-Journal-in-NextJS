@@ -18,6 +18,10 @@ export default function DetailedTable() {
   return (
     <>
       {groupkeys.map((date: string) => {
+        const rows: Array<HistoryFormattedItem> = groups[date];
+        const winsTotal = rows.filter((row) => row.PROFIT_LOSS > 0).length;
+        const lossTotal = rows.filter((row) => row.PROFIT_LOSS < 0).length;
+
         return (
           <div className="bg-white shadow sm:rounded-lg mb-4" key={date}>
             <div className="px-4 py-5 sm:p-6">
@@ -27,7 +31,8 @@ export default function DetailedTable() {
                     Date: {date}
                   </h1>
                   <p className="text-base text-gray-900">
-                    P&L: <GroupTotalProfitLoss rows={groups[date]} />{" "}
+                    P&L: <GroupTotalProfitLoss rows={rows} /> | W: {winsTotal} |
+                    L: {lossTotal}
                   </p>
                 </div>
               </div>
@@ -66,29 +71,27 @@ export default function DetailedTable() {
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 bg-white">
-                          {groups[date].map(
-                            (row: HistoryFormattedItem, i: number) => (
-                              <tr
-                                key={i}
-                                className={`${
-                                  row.PROFIT_LOSS > 0 ? "bg-green-100" : ""
-                                }${row.PROFIT_LOSS < 0 ? "bg-red-100" : ""}`}
-                              >
-                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                  {row.SYMBOL}
-                                </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                  {row.PROFIT_LOSS}
-                                </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                  {row.TIME.format("HH:mm:ss")}
-                                </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                  {row.POSITION}
-                                </td>
-                              </tr>
-                            )
-                          )}
+                          {rows.map((row: HistoryFormattedItem, i: number) => (
+                            <tr
+                              key={i}
+                              className={`${
+                                row.PROFIT_LOSS > 0 ? "bg-green-100" : ""
+                              }${row.PROFIT_LOSS < 0 ? "bg-red-100" : ""}`}
+                            >
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                {row.SYMBOL}
+                              </td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                {row.PROFIT_LOSS}
+                              </td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                {row.TIME.format("HH:mm:ss")}
+                              </td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                {row.POSITION}
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
