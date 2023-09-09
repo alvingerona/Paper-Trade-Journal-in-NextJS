@@ -1,10 +1,10 @@
 "use client";
 
-import useloadFromCSV from "@/hooks/useloadFromCSV";
+import useLoadFromCSV from "@/hooks/useLoadFromCSV";
 import React, { useState } from "react";
 
 export default function HistoryUpload() {
-  const loadCSV = useloadFromCSV();
+  const loadCSV = useLoadFromCSV();
   const [file, setFile] = useState<undefined | File>();
   const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

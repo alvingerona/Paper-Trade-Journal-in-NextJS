@@ -4,13 +4,13 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import {
   HistoryFormattedItem,
-  useGroupRowsByDate,
+  selectGroupRowsByDate,
 } from "@/store/accountHistory";
 import { AppState } from "@/store/store";
 import GroupTotalProfitLoss from "../GroupTotalProfitLoss";
 
 export default function DetailedTable() {
-  const groups = useSelector((state: AppState) => useGroupRowsByDate(state));
+  const groups = useSelector((state: AppState) => selectGroupRowsByDate(state));
   const groupkeys = useMemo(() => {
     return Object.keys(groups).reverse().reverse();
   }, groups);
@@ -19,8 +19,10 @@ export default function DetailedTable() {
     <>
       {groupkeys.map((date: string) => {
         const rows: Array<HistoryFormattedItem> = groups[date];
-        const winsTotal = rows.filter((row) => row.PROFIT_LOSS > 0).length;
-        const lossTotal = rows.filter((row) => row.PROFIT_LOSS < 0).length;
+        const wins = rows.filter((row) => row.PROFIT_LOSS > 0);
+        const losses = rows.filter((row) => row.PROFIT_LOSS < 0);
+        const winsTotal = wins.length;
+        const lossTotal = losses.length;
 
         return (
           <div className="bg-white shadow sm:rounded-lg mb-4" key={date}>
@@ -33,6 +35,9 @@ export default function DetailedTable() {
                   <p className="text-base text-gray-900">
                     P&L: <GroupTotalProfitLoss rows={rows} /> | W: {winsTotal} |
                     L: {lossTotal}
+                  </p>
+                  <p className="text-base text-gray-900">
+                    Trades count: {rows.length}
                   </p>
                 </div>
               </div>

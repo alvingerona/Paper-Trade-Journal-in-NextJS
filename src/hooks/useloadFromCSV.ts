@@ -1,9 +1,8 @@
 "use client";
 
-import { setRows, useSelectRows } from "@/store/accountHistory";
-import { AppState } from "@/store/store";
+import { setRows } from "@/store/accountHistory";
 import { useMutation } from "@tanstack/react-query";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as csvParse from "csv-parse";
 
 type ParseItem = {
@@ -14,7 +13,7 @@ type ParseItem = {
   Time: string;
 };
 
-const useloadFromCSV = () => {
+const useLoadFromCSV = () => {
   const dispatch = useDispatch();
 
   const mutation = useMutation({
@@ -61,4 +60,4 @@ const useloadFromCSV = () => {
   };
 };
 
-export default useloadFromCSV;
+export default useLoadFromCSV;

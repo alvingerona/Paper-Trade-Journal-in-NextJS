@@ -9,7 +9,7 @@ export interface HistoryRawItem {
   BALANCE_BEFORE: string;
   PROFIT_LOSS: string;
   TIME: string;
-  id: string; // id is generated from combination of all other fields
+  // id: string; // id is generated from combination of all other fields
 }
 
 export interface HistoryFormattedItem {
@@ -47,7 +47,7 @@ export const accountHistorySlice = createSlice({
       state.rows = action.payload.map((item) => {
         return {
           ...item,
-          id: `${item.ACTION}-${item.BALANCE_AFTER}-${item.BALANCE_BEFORE}-${item.PROFIT_LOSS}-${item.TIME}`,
+          //  id: `${item.ACTION}-${item.BALANCE_AFTER}-${item.BALANCE_BEFORE}-${item.PROFIT_LOSS}-${item.TIME}`,
         };
       });
     },
@@ -66,12 +66,12 @@ export const accountHistorySlice = createSlice({
 
 export const { setRows } = accountHistorySlice.actions;
 
-export const useSelectRows = (state: AppState) => state.accountHistory.rows;
-export const useHasRow = (state: AppState) =>
+export const selectRows = (state: AppState) => state.accountHistory.rows;
+export const isHasRow = (state: AppState) =>
   state.accountHistory.rows.length > 0;
-export const useSelectFormattedRows = (state: AppState) => {
-  const hasRows = useHasRow(state);
-  const rows = useSelectRows(state);
+export const selectFormattedRows = (state: AppState) => {
+  const hasRows = isHasRow(state);
+  const rows = selectRows(state);
 
   if (!hasRows) {
     return [];
@@ -104,8 +104,8 @@ export const useSelectFormattedRows = (state: AppState) => {
     };
   });
 };
-export const useGroupRowsByDate = (state: AppState) => {
-  const rows: Array<HistoryFormattedItem> = useSelectFormattedRows(state);
+export const selectGroupRowsByDate = (state: AppState) => {
+  const rows: Array<HistoryFormattedItem> = selectFormattedRows(state);
   const groupedData = rows.reduce((result: any, currentItem) => {
     const date = currentItem.DATE;
 

@@ -2,13 +2,13 @@
 
 import DetailedTable from "@/components/DetailedTable";
 import HistoryUpload from "@/components/HistoryUpload";
-import { useHasRow, useSelectRows } from "@/store/accountHistory";
+import { isHasRow } from "@/store/accountHistory";
 import { AppState } from "@/store/store";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
 export default function Home() {
-  const hasRow = useSelector((state: AppState) => useHasRow(state));
+  const hasRow = useSelector((state: AppState) => isHasRow(state));
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
