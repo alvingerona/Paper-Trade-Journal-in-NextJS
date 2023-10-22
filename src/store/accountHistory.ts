@@ -125,11 +125,14 @@ export default accountHistorySlice.reducer;
 
 function extractPositionAndCreateString(inputString: string) {
   const positionMatch = inputString.match(/\b(Long|Short)\b/i); // Match "Long" or "Short" case-insensitively
+  const isComission = inputString.match("Commission for: Enter position for");
 
   if (positionMatch) {
     const position = positionMatch[0]; // Extract matched position ("Long" or "Short")
     const resultString = position.toLowerCase();
     return resultString;
+  } else if (isComission) {
+    return "Commission";
   } else {
     return "Position not found in input string.";
   }

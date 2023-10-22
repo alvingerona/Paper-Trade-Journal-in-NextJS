@@ -20,7 +20,13 @@ export default function DetailedTable() {
       {groupkeys.map((date: string) => {
         const rows: Array<HistoryFormattedItem> = groups[date];
         const wins = rows.filter((row) => row.PROFIT_LOSS > 0);
-        const losses = rows.filter((row) => row.PROFIT_LOSS < 0);
+        const losses = rows.filter((row) => {
+          if (row.POSITION == "Commission") {
+            return false;
+          }
+
+          return row.PROFIT_LOSS < 0;
+        });
         const winsTotal = wins.length;
         const lossTotal = losses.length;
 
