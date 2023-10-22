@@ -15,7 +15,7 @@ export default function DetailedTable() {
   const groups = useSelector((state: AppState) => selectGroupRowsByDate(state));
   const groupkeys = useMemo(() => {
     return Object.keys(groups).reverse().reverse();
-  }, groups);
+  }, [groups]);
 
   return (
     <>
