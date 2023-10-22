@@ -19,8 +19,8 @@ export default function DetailedTable() {
 
   return (
     <>
-      {groupkeys.map((date: string) => {
-        return <DayTable date={date} items={groups[date]} />;
+      {groupkeys.map((date: string, i: number) => {
+        return <DayTable date={date} items={groups[date]} key={i} />;
       })}
     </>
   );
