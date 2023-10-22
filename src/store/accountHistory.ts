@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AppState } from "./store";
 import { HYDRATE } from "next-redux-wrapper";
 import moment, { Moment } from "moment-timezone";
+import { POSITION_COMISSION } from "@/types";
 
 export interface HistoryRawItem {
   ACTION: string;
@@ -125,15 +126,19 @@ export default accountHistorySlice.reducer;
 
 function extractPositionAndCreateString(inputString: string) {
   const positionMatch = inputString.match(/\b(Long|Short)\b/i); // Match "Long" or "Short" case-insensitively
-  const isComission = inputString.match("Commission for: Enter position for");
+  const isComission =
+    inputString.match("Commission for: Enter position for") ||
+    inputString.match("Commission for:");
+
+  if (isComission) {
+    return POSITION_COMISSION;
+  }
 
   if (positionMatch) {
     const position = positionMatch[0]; // Extract matched position ("Long" or "Short")
     const resultString = position.toLowerCase();
     return resultString;
-  } else if (isComission) {
-    return "Commission";
-  } else {
-    return "Position not found in input string.";
   }
+
+  return "Position not found in input string.";
 }

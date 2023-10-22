@@ -11,7 +11,7 @@ export default function Home() {
   const hasRow = useSelector((state: AppState) => isHasRow(state));
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 pt-6 md:pt-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white lg:static lg:h-auto lg:w-auto lg:bg-none">
           <a
@@ -31,8 +31,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="lg:w-full lg:max-w-5xl lg:w-full">
-        <div className="mb-4 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+      <div className="md:w-full md:max-w-5xl md:w-full">
+        <div className="mb-4 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left md:grid-cols-2">
           <HistoryUpload />
         </div>
 
