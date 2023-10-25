@@ -1,9 +1,13 @@
 "use client";
 
 import useLoadFromCSV from "@/hooks/useLoadFromCSV";
+import { isHasRow } from "@/store/accountHistory";
+import { AppState } from "@/store/store";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function HistoryUpload() {
+  const hasRow = useSelector((state: AppState) => isHasRow(state));
   const loadCSV = useLoadFromCSV();
   const [file, setFile] = useState<undefined | File>();
   const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +41,10 @@ export default function HistoryUpload() {
         </div>
         <form className="mt-5 sm:flex sm:items-center" onSubmit={onSubmit}>
           <div className="w-full sm:max-w-xs">
-            <label htmlFor="file" className="inline-flex w-full items-center justify-center rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
+            <label
+              htmlFor="file"
+              className="inline-flex w-full items-center justify-center rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+            >
               Choose CSV File
             </label>
             <input
@@ -56,6 +63,21 @@ export default function HistoryUpload() {
             Upload
           </button>
         </form>
+
+        {!hasRow ? (
+          <p className="text-xs mt-4 text-gray-500">
+            Please upload the exported account history CSV file from
+            TradingView. You can find a sample file at{" "}
+            <a
+              href="https://drive.google.com/file/d/1-ILZhnX55zr6Xlkff1zEv2TQQurRpDEt/view?usp=drive_link."
+              target="_blank"
+              className="text-indigo-400"
+            >
+              this link
+            </a>
+            .
+          </p>
+        ) : null}
       </div>
     </div>
   );
